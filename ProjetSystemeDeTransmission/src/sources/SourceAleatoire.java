@@ -20,6 +20,7 @@ public class SourceAleatoire {
 			messageString += randomInt;
 			
 			this.mssg = messageString;
+			
 		}
 
 	}
