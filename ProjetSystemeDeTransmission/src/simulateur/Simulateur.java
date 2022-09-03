@@ -6,6 +6,7 @@ import visualisations.*;
 
 import java.security.KeyStore.TrustedCertificateEntry;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 /** La classe Simulateur permet de construire et simuler une chaîne de
  * transmission composée d'une Source, d'un nombre variable de
@@ -88,12 +89,8 @@ public class Simulateur {
      */   
     public  void analyseArguments(String[] args)  throws  ArgumentsException {
 
-    	String parameters = "";
-    	
     	for (int i=0;i<args.length;i++){ // traiter les arguments 1 par 1
-    		
-    		parameters += args[i];
-    		
+    		    		
     		if (args[i].matches("-s")){
     			affichage = true;
     		}
@@ -117,6 +114,7 @@ public class Simulateur {
     			if (args[i].matches("[0,1]{7,}")) { // au moins 7 digits
     				messageAleatoire = false;
     				nbBitsMess = args[i].length();
+    				messageString=args[i];
     			} 
     			else if (args[i].matches("[0-9]{1,6}")) { // de 1 à 6 chiffres
     				messageAleatoire = true;
@@ -134,18 +132,18 @@ public class Simulateur {
     	}
     	
     	if (messageAleatoire == true) {
-    		int randomZeroOrOne;
-			randomZeroOrOne.random.ints(0,2);
-			messageString += randomZeroOrOne;
+    		Random randomZeroOrOne = new Random();
+			int randomInt;
+    		messageString = "";
 		
-			for (int index=1; index < nbBitsMess; index++) {
-				randomZeroOrOne = ThreadLocalRandom.current().nextInt(0, 2);
-				messageString += randomZeroOrOne;    					
+			for (int index=0; index < nbBitsMess; index++) {
+				randomInt = randomZeroOrOne.nextInt(0,2);
+				messageString += randomInt;    					
 			}
 		}
-    	else {
-    		messageString = parameters.replaceAll("[^01]{7,}", "");
-    	}
+    	//else {
+    		//messageString = parameters.replaceAll("[^01]{7,}", "");
+    	//}
     	
     	System.out.println(messageString);
     }
