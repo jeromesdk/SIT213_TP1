@@ -60,11 +60,11 @@ public class Simulateur {
     public  Simulateur(String [] args) throws ArgumentsException {
     	// analyser et récupérer les arguments   	
     	analyseArguments(args);
-    	source=new SourceFixe();
-    	SondeLogique test = new SondeLogique("Source", 100);
-    	source.connecter(test);
-        System.out.println("Here is the string : " + test + ". End");
-      		
+    	if (messageAleatoire == false) {
+    		source = new SourceFixe(messageString);
+    	}
+    	
+    	source.connecter(new SondeLogique("Source", 200));
     }
    
    
@@ -110,7 +110,7 @@ public class Simulateur {
     		else if (args[i].matches("-mess")){
     			i++; 
     			// traiter la valeur associee
-    			messageString = args[i];
+    			
     			if (args[i].matches("[0,1]{7,}")) { // au moins 7 digits
     				messageAleatoire = false;
     				nbBitsMess = args[i].length();
@@ -145,7 +145,7 @@ public class Simulateur {
     		//messageString = parameters.replaceAll("[^01]{7,}", "");
     	//}
     	
-    	System.out.println(messageString);
+    	//System.out.println(messageString);
     }
      
     
